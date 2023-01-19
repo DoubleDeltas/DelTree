@@ -43,4 +43,5 @@ out/
 .eslintcache
 
 # Test Files
+test
 *.test.js
