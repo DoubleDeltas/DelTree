@@ -1,26 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Message, Events, Interaction, ChatInputCommandInteraction, CommandInteraction, ChatInputApplicationCommandData, ApplicationCommandType, CommandInteractionOptionResolver } from "discord.js"
-
+import { Command, loadCommands, getCommand } from "./commands";
+import 'module-alias/register'
 import "./config/env";
-
-interface Command extends ChatInputApplicationCommandData {
-	run: (client: Client, interaction: CommandInteraction) => void;
-}
-
-const hello: Command = {
-	name: "hello",
-	description: "Returns a greeting",
-	type: ApplicationCommandType.ChatInput,
-	run: async (client: Client, interaction: CommandInteraction) => {
-		const content = "Hello there!";
-
-		await interaction.followUp({
-			ephemeral: true,
-			content
-		});
-	}
-};
-
-const cmds: Command[] = [hello];
 
 (async () => {
 	const client: Client<boolean> = new Client({
@@ -32,7 +13,7 @@ const cmds: Command[] = [hello];
 	});
 
 	client.on(Events.ClientReady, async () => {
-		client.application.commands.set(cmds);
+		loadCommands(client);
 		console.log("Login!");
 	});
 
@@ -44,10 +25,10 @@ const cmds: Command[] = [hello];
 
 	client.on(Events.InteractionCreate, async (interaction: Interaction) => {
 		if (!interaction.isCommand() && !interaction.isContextMenuCommand())
-			return;
-		const cmd = cmds.find(c => c.name === interaction.commandName);
-		if (!cmd)
-			return;
+			return null;
+
+		const cmd = getCommand(interaction);
+		if (!cmd) return;
 		
 		await interaction.deferReply();
 		cmd.run(client, interaction);

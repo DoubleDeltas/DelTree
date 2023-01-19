@@ -5,12 +5,17 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "execute": "node dist/app",
-    "start": "tsc --build && node dist/app"
+    "start": "tsc --build && node dist/app",
+    "dev": "nodemon --watch src/ tsc --build && dist/src/app.js"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "module-alias": "^2.2.2",
     "typescript": "^4.9.3"
+  },
+  "_moduleAliases": {
+    "@": "dist/src"
   }
 }
