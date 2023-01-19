@@ -45,3 +45,4 @@ out/
 # Test Files
 test
 *.test.js
+*.test.ts
