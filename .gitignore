@@ -41,3 +41,6 @@ out/
 # Cache
 .prettiercache
 .eslintcache
+
+# Test Files
+*.test.js

@@ -6,7 +6,7 @@ import * as fs from "fs";
  * @param extensions 확장자 리스트, 없으면 확장자 상관없이 가져옵니다.
  * @returns 경로명 리스트, 만약 불러올 수 없다면 빈 리스트.
  */
-function getFilesRecursively (path: string, extensions: string[] = null): string[]  {
+export function getFilesRecursively (path: string, extensions: string[] = null): string[]  {
 	let files: string[] = [];
 	fs.readdirSync(path, {withFileTypes: true}).forEach((entry) => {
 		const fullPath: string = path + "\\" + entry.name;
@@ -20,8 +20,4 @@ function getFilesRecursively (path: string, extensions: string[] = null): string
 		}
 	});
 	return files;
-}
-
-export default {
-	getFilesRecursively
 }

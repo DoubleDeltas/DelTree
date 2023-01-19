@@ -1,5 +1,5 @@
 import { ChatInputApplicationCommandData, Client, CommandInteraction, Interaction } from "discord.js";
-import FileUtil from "../utils/FileUtil";
+import { getFilesRecursively } from "../utils/FileUtil";
 
 export interface Command extends ChatInputApplicationCommandData {
 	run: (client: Client, interaction: CommandInteraction) => void;
@@ -8,7 +8,7 @@ export interface Command extends ChatInputApplicationCommandData {
 const commands: Command[] = [];
 
 export function loadCommands(client: Client) {
-	FileUtil.getFilesRecursively(__dirname, [".ts"]).forEach(filePath => {
+	getFilesRecursively(__dirname).forEach(filePath => {
 		commands.push(require(filePath) as Command);
 	});
 	client.application.commands.set(commands)

@@ -6,7 +6,8 @@
     "clean": "tsc --build --clean",
     "execute": "node dist/app",
     "start": "tsc --build && node dist/app",
-    "dev": "nodemon --watch src/ tsc --build && dist/src/app.js"
+    "dev": "nodemon --watch src/ tsc --build && dist/src/app.js",
+    "test": "jest"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
@@ -17,5 +18,8 @@
   },
   "_moduleAliases": {
     "@": "dist/src"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
   }
 }
